@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cursor-size: 20px;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  @apply bg-dark-300 text-white overflow-x-hidden;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-dark-400;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary-500 rounded-full;
+}
+
+.cursive {
+  font-family: 'Dancing Script', cursive;
+}
+
+.section {
+  /* scroll-snap-align: start; */
+  @apply h-screen w-full flex flex-col items-center justify-center relative overflow-hidden;
+}
+
+.animated-border {
+  position: relative;
+}
+
+.animated-border::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  z-index: -1;
+  background: linear-gradient(90deg, 
+    var(--tw-gradient-stops)
+  );
+  --tw-gradient-from: #8b2cff var(--tw-gradient-from-position);
+  --tw-gradient-to: #fa3678 var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  border-radius: inherit;
+  background-size: 400% 400%;
+  animation: border-dance 8s linear infinite;
+}
+
+.card {
+  @apply rounded-2xl p-6 bg-dark-200 backdrop-blur-lg bg-opacity-80 shadow-xl transition-all duration-500 relative overflow-hidden;
+}
+
+.card:hover {
+  transform: translateY(-5px) scale(1.01);
+  @apply shadow-primary-500/20 shadow-lg;
+}
+
+.photo-card {
+  @apply card;
+  aspect-ratio: 3/4;
+}
+
+.text-card {
+  @apply card;
+}
+
+.heart-cursor {
+  position: fixed;
+  width: var(--cursor-size);
+  height: var(--cursor-size);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: screen;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+  
+  .photo-card {
+    aspect-ratio: 4/5;
+  }
+}
+
+@media (min-width: 1024px) {
+  .photo-card:hover {
+    transform: translateY(-10px) scale(1.02) rotateY(5deg);
+  }
+}
+
+@layer utilities {
+  .drop-shadow-glow {
+    filter: drop-shadow(0 0 8px #fa3678) drop-shadow(0 0 16px #8b2cff);
+  }
+  .animate-glow {
+    animation: glowPulseLight 2.5s infinite alternate;
+  }
+}
+
+@keyframes glowPulseLight {
+  0% { filter: drop-shadow(0 0 24px #fa3678) drop-shadow(0 0 16px #fff); }
+  100% { filter: drop-shadow(0 0 48px #fff) drop-shadow(0 0 32px #fa3678); }
+}
+
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-16px) scale(1.1); }
+}
+.animate-bounce-slow {
+  animation: bounce-slow 2.2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes floatMemories {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-18px) scale(1.04); }
+  100% { transform: translateY(0); }
+}
+.floating-memory {
+  animation: floatMemories 4s ease-in-out infinite;
+}
